@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARTIPACK! — Taste It, Love It, Crave It!</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0F1B33;
+    --navy-2:#1B2A4A;
+    --gold:#F5B301;
+    --gold-2:#FFC93C;
+    --cream:#FFF8E1;
+    --white:#FFFFFF;
+    --gray:#E9ECEF;
+    --muted:#B8C1D1;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+  html{scroll-behavior:smooth;scroll-padding-top:80px;}
+  body{background:var(--navy);color:var(--white);overflow-x:hidden;}
+  h1,h2,h3,.brand{font-family:'Playfair Display',serif;}
+
+  /* ===== NAVBAR ===== */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 40px;
+    background:rgba(15,27,51,0.92);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(245,179,1,0.2);
+    transition:.3s;
+  }
+  .brand{font-size:1.6rem;font-weight:900;color:var(--gold);letter-spacing:1px;cursor:pointer;}
+  .brand span{color:var(--white);}
+  .nav-links{display:flex;gap:6px;flex-wrap:wrap;}
+  .nav-links a{
+    color:var(--white);text-decoration:none;padding:8px 16px;border-radius:30px;
+    font-size:0.9rem;font-weight:500;transition:.3s;cursor:pointer;
+  }
+  .nav-links a:hover{background:rgba(245,179,1,0.15);color:var(--gold);}
+  .nav-links a.active{background:var(--gold);color:var(--navy);font-weight:600;}
+  .cart-btn{
+    background:var(--gold);color:var(--navy);border:none;
+    padding:10px 18px;border-radius:30px;font-weight:700;cursor:pointer;
+    display:flex;align-items:center;gap:6px;transition:.3s;
+  }
+  .cart-btn:hover{transform:scale(1.05);background:var(--gold-2);}
+
+  /* ===== SECTION BASE ===== */
+  section{padding:100px 40px 60px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;}
+  #home{padding-top:120px;}
+
+  /* ===== HERO ===== */
+  .hero{
+    display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;
+    max-width:1200px;margin:0 auto;width:100%;
+  }
+  .hero-text .tag{
+    display:inline-block;background:rgba(245,179,1,0.15);color:var(--gold);
+    padding:6px 16px;border-radius:30px;font-size:0.8rem;letter-spacing:2px;
+    margin-bottom:20px;font-weight:600;
+  }
+  .hero-text h1{font-size:3.5rem;line-height:1.1;margin-bottom:16px;}
+  .hero-text h1 .gold{color:var(--gold);}
+  .hero-text .slogan{
+    font-size:1.1rem;color:var(--gold-2);font-style:italic;
+    margin-bottom:20px;font-weight:500;
+  }
+  .hero-text p{color:var(--muted);font-size:1rem;margin-bottom:30px;max-width:520px;}
+  .hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    padding:14px 30px;border-radius:30px;font-weight:600;font-size:0.95rem;
+    cursor:pointer;border:none;transition:.3s;text-decoration:none;
+    display:inline-block;text-align:center;
+  }
+  .btn-primary{background:var(--gold);color:var(--navy);}
+  .btn-primary:hover{background:var(--gold-2);transform:translateY(-3px);box-shadow:0 10px 25px rgba(245,179,1,0.35);}
+  .btn-outline{background:transparent;color:var(--white);border:2px solid var(--gold);}
+  .btn-outline:hover{background:var(--gold);color:var(--navy);}
+
+  .hero-img{display:flex;align-items:center;justify-content:center;}
+  .hero-img .circle{
+    width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%,var(--gold-2),var(--gold),#c98f00);
+    display:flex;align-items:center;justify-content:center;
+    font-size:9rem;box-shadow:0 0 80px rgba(245,179,1,0.4);
+    animation:float 4s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
+
+  /* ===== FITUR UNGGULAN ===== */
+  .features{
+    max-width:1200px;margin:70px auto 0;width:100%;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+  }
+  .feature{
+    background:var(--navy-2);border:1px solid rgba(245,179,1,0.2);
+    padding:24px;border-radius:16px;text-align:center;transition:.3s;
+  }
+  .feature:hover{transform:translateY(-6px);border-color:var(--gold);}
+  .feature .icon{font-size:2.2rem;margin-bottom:10px;}
+  .feature h3{color:var(--gold);font-size:1rem;margin-bottom:6px;}
+  .feature p{color:var(--muted);font-size:0.85rem;}
+
+  /* ===== SECTION TITLE ===== */
+  .section-title{text-align:center;margin-bottom:40px;}
+  .section-title h2{font-size:2.4rem;margin-bottom:8px;}
+  .section-title h2 span{color:var(--gold);}
+  .section-title p{color:var(--muted);font-size:0.95rem;}
+
+  /* ===== KATALOG ===== */
+  #katalog{background:linear-gradient(180deg,var(--navy) 0%,#0a1428 100%);}
+  .filter-bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
+  .filter-bar button{
+    background:var(--navy-2);color:var(--white);border:1px solid rgba(245,179,1,0.3);
+    padding:10px 22px;border-radius:30px;cursor:pointer;font-weight:500;transition:.3s;
+    font-family:inherit;font-size:0.9rem;
+  }
+  .filter-bar button:hover{border-color:var(--gold);color:var(--gold);}
+  .filter-bar button.active{background:var(--gold);color:var(--navy);font-weight:700;border-color:var(--gold);}
+
+  .grid-products{
+    max-width:1200px;margin:0 auto;width:100%;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;
+  }
+  .card{
+    background:var(--navy-2);border-radius:18px;overflow:hidden;
+    border:1px solid rgba(245,179,1,0.15);transition:.3s;
+    display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 15px 40px rgba(0,0,0,0.4);}
+  .card-img{
+    height:160px;background:linear-gradient(135deg,var(--gold),#c98f00);
+    display:flex;align-items:center;justify-content:center;font-size:3.5rem;
+  }
+  .card-body{padding:18px;flex:1;display:flex;flex-direction:column;}
+  .card-body h3{font-size:1.2rem;margin-bottom:4px;}
+  .card-body .pack{color:var(--gold-2);font-size:0.8rem;font-weight:600;letter-spacing:1px;margin-bottom:8px;}
+  .card-body .desc{color:var(--muted);font-size:0.82rem;margin-bottom:14px;flex:1;}
+  .card-body .price{color:var(--gold);font-size:1.3rem;font-weight:700;margin-bottom:14px;}
+  .card-body .btn-add{
+    background:var(--gold);color:var(--navy);border:none;
+    padding:10px;border-radius:10px;font-weight:700;cursor:pointer;transition:.3s;
+    font-size:0.85rem;font-family:inherit;
+  }
+  .card-body .btn-add:hover{background:var(--gold-2);transform:scale(1.03);}
+
+  .extra-grid{
+    max-width:1000px;margin:50px auto 0;width:100%;
+    display:grid;grid-template-columns:1fr 1fr;gap:22px;
+  }
+  .extra-card{
+    background:linear-gradient(135deg,var(--navy-2),#24365c);
+    border:1px dashed var(--gold);border-radius:18px;padding:28px;
+  }
+  .extra-card h3{color:var(--gold);margin-bottom:10px;font-size:1.3rem;}
+  .extra-card p{color:var(--muted);font-size:0.9rem;margin-bottom:16px;}
+
+  /* ===== TENTANG ===== */
+  #tentang{background:linear-gradient(180deg,#0a1428 0%,var(--navy) 100%);}
+  .about-wrap{
+    max-width:1100px;margin:0 auto;width:100%;
+    display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;
+  }
+  .about-text h2{font-size:2.4rem;margin-bottom:16px;}
+  .about-text h2 span{color:var(--gold);}
+  .about-text p{color:var(--muted);margin-bottom:16px;line-height:1.7;}
+  .team-list{list-style:none;margin:20px 0;}
+  .team-list li{
+    padding:10px 16px;background:var(--navy-2);border-radius:10px;
+    margin-bottom:8px;border-left:3px solid var(--gold);font-size:0.9rem;
+  }
+  .about-img{
+    background:linear-gradient(135deg,var(--gold),#c98f00);
+    border-radius:20px;height:360px;display:flex;align-items:center;justify-content:center;
+    font-size:6rem;box-shadow:0 0 60px rgba(245,179,1,0.3);
+  }
+
+  /* ===== CHECKOUT ===== */
+  #checkout{background:linear-gradient(180deg,var(--navy) 0%,#0a1428 100%);}
+  .checkout-wrap{
+    max-width:1100px;margin:0 auto;width:100%;
+    display:grid;grid-template-columns:1fr 1fr;gap:30px;
+  }
+  .panel{
+    background:var(--navy-2);border-radius:18px;padding:28px;
+    border:1px solid rgba(245,179,1,0.2);
+  }
+  .panel h3{color:var(--gold);margin-bottom:18px;font-size:1.3rem;}
+  .cart-item{
+    display:flex;justify-content:space-between;padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.9rem;
+  }
+  .cart-item:last-child{border-bottom:none;}
+  .cart-total{
+    display:flex;justify-content:space-between;margin-top:16px;padding-top:16px;
+    border-top:2px solid var(--gold);font-weight:700;font-size:1.1rem;color:var(--gold);
+  }
+  .form-group{margin-bottom:14px;}
+  .form-group label{display:block;font-size:0.85rem;color:var(--muted);margin-bottom:6px;}
+  .form-group input,.form-group textarea{
+    width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(245,179,1,0.25);
+    background:rgba(15,27,51,0.6);color:var(--white);font-size:0.9rem;font-family:inherit;
+  }
+  .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--gold);}
+  .form-group textarea{resize:vertical;min-height:70px;}
+  .empty-cart{color:var(--muted);text-align:center;padding:30px 0;font-style:italic;}
+
+  /* ===== KONTAK ===== */
+  #kontak{background:linear-gradient(180deg,#0a1428 0%,var(--navy) 100%);}
+  .contact-wrap{max-width:1100px;margin:0 auto;width:100%;}
+  .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:30px;}
+  .contact-card{
+    background:var(--navy-2);border-radius:18px;padding:28px;text-align:center;
+    border:1px solid rgba(245,179,1,0.2);transition:.3s;
+  }
+  .contact-card:hover{transform:translateY(-6px);border-color:var(--gold);}
+  .contact-card .icon{font-size:2.5rem;margin-bottom:12px;}
+  .contact-card h3{color:var(--gold);margin-bottom:10px;font-size:1.05rem;}
+  .contact-card p{color:var(--muted);font-size:0.88rem;margin-bottom:16px;line-height:1.6;}
+  .map-wrap{
+    border-radius:18px;overflow:hidden;border:1px solid rgba(245,179,1,0.2);
+    height:320px;
+  }
+  .map-wrap iframe{width:100%;height:100%;border:0;filter:grayscale(0.3) invert(0.9) hue-rotate(180deg);}
+
+  /* ===== FOOTER ===== */
+  footer{
+    text-align:center;padding:30px 20px;color:var(--muted);font-size:0.85rem;
+    border-top:1px solid rgba(245,179,1,0.15);background:var(--navy);
+  }
+  footer .gold{color:var(--gold);}
+
+  /* ===== TOAST ===== */
+  .toast{
+    position:fixed;bottom:30px;right:30px;background:var(--gold);color:var(--navy);
+    padding:14px 24px;border-radius:12px;font-weight:600;font-size:0.9rem;
+    transform:translateY(120px);transition:.4s;z-index:9999;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  }
+  .toast.show{transform:translateY(0);}
+
+  /* ===== BACK TO TOP ===== */
+  .back-top{
+    position:fixed;bottom:30px;left:30px;background:var(--gold);color:var(--navy);
+    width:50px;height:50px;border-radius:50%;border:none;font-size:1.4rem;
+    cursor:pointer;font-weight:700;box-shadow:0 6px 20px rgba(245,179,1,0.4);
+    transition:.3s;z-index:999;
+  }
+  .back-top:hover{transform:translateY(-4px) scale(1.08);}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:900px){
+    nav{padding:12px 16px;flex-wrap:wrap;gap:10px;}
+    .nav-links{order:3;width:100%;justify-content:center;overflow-x:auto;}
+    .nav-links a{padding:6px 12px;font-size:0.8rem;white-space:nowrap;}
+    section{padding:90px 20px 50px;}
+    .hero{grid-template-columns:1fr;text-align:center;}
+    .hero-text h1{font-size:2.4rem;}
+    .hero-btns{justify-content:center;}
+    .hero-img .circle{width:220px;height:220px;font-size:5rem;}
+    .features{grid-template-columns:repeat(2,1fr);}
+    .extra-grid{grid-template-columns:1fr;}
+    .about-wrap{grid-template-columns:1fr;}
+    .about-img{height:220px;font-size:4rem;}
+    .checkout-wrap{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .section-title h2{font-size:1.7rem;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav>
+  <div class="brand" onclick="scrollToSection('home')">ARTI<span>PACK!</span></div>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" data-section="home" class="active">Beranda</a>
+    <a href="#katalog" data-section="katalog">Katalog</a>
+    <a href="#tentang" data-section="tentang">Tentang</a>
+    <a href="#checkout" data-section="checkout">Checkout</a>
+    <a href="#kontak" data-section="kontak">Kontak</a>
+  </div>
+  <button class="cart-btn" onclick="scrollToSection('checkout')">🛒 <span id="cartCount">0</span></button>
+</nav>
+
+<!-- ================= 1. BERANDA ================= -->
+<section id="home">
+  <div class="hero">
+    <div class="hero-text">
+      <span class="tag">🥔 FROM SUKUN TO SNACK</span>
+      <h1>Kriuk <span class="gold">Sukun</span>, Manisnya Bikin <span class="gold">Nagih!</span></h1>
+      <p class="slogan">"TASTE IT, LOVE IT, CRAVE IT!"</p>
+      <p>Keripik sukun lokal pilihan dari Madura, diolah dengan cinta dan dikemas secara modern, minimalis, dan aesthetic. Cocok untuk camilan pribadi, oleh-oleh, atau dijual kembali!</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="scrollToSection('katalog')">🛒 Lihat Katalog</button>
+        <button class="btn btn-outline" onclick="scrollToSection('kontak')">📞 Hubungi Kami</button>
+      </div>
+    </div>
+    <div class="hero-img">
+      <div class="circle">🥔</div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <div class="icon">🥔</div>
+      <h3>Sukun Lokal Pilihan</h3>
+      <p>Bahan baku segar langsung dari Madura</p>
+    </div>
+    <div class="feature">
+      <div class="icon">🍯</div>
+      <h3>Manis & Renyah</h3>
+      <p>Perpaduan rasa yang bikin nagih</p>
+    </div>
+    <div class="feature">
+      <div class="icon">📦</div>
+      <h3>Kemasan Aesthetic</h3>
+      <p>Modern, praktis, instagramable</p>
+    </div>
+    <div class="feature">
+      <div class="icon">💰</div>
+      <h3>Harga Ramah</h3>
+      <p>Mulai dari Rp5.000 aja!</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. KATALOG ================= -->
+<section id="katalog">
+  <div class="section-title">
+    <h2>📦 <span>KATALOG</span> ARTIPACK</h2>
+    <p>Pilih ukuran favoritmu — dari camilan pribadi sampai stok keluarga!</p>
+  </div>
+
+  <div class="filter-bar" id="filterBar">
+    <button class="active" data-filter="all" onclick="filterProducts('all',this)">Semua</button>
+    <button data-filter="5000" onclick="filterProducts(5000,this)">Rp5.000</button>
+    <button data-filter="10000" onclick="filterProducts(10000,this)">Rp10.000</button>
+    <button data-filter="15000" onclick="filterProducts(15000,this)">Rp15.000</button>
+    <button data-filter="20000" onclick="filterProducts(20000,this)">Rp20.000+</button>
+  </div>
+
+  <div class="grid-products" id="productGrid"></div>
+
+  <div class="extra-grid">
+    <div class="extra-card">
+      <h3>🏷️ STIKER LABEL</h3>
+      <p>Stiker custom untuk mempercantik & memberi identitas pada kemasan produk. Bisa request desain, ukuran, dan tulisan sesuai kebutuhan.</p>
+      <p style="color:var(--gold);font-weight:700;font-size:1.1rem;">Harga mulai Rp2.000</p>
+      <button class="btn btn-primary" style="margin-top:12px;" onclick="orderStiker()">Pesan Stiker</button>
+    </div>
+    <div class="extra-card">
+      <h3>✨ CUSTOM PACKAGING</h3>
+      <p>Bisa request ukuran kemasan, desain, dan stiker sesuai kebutuhan produkmu. Konsultasi gratis via WhatsApp!</p>
+      <p style="color:var(--gold);font-weight:700;font-size:1.1rem;">Fleksibel sesuai kebutuhan</p>
+      <button class="btn btn-primary" style="margin-top:12px;" onclick="konsultasi()">Konsultasi Sekarang</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. TENTANG ================= -->
+<section id="tentang">
+  <div class="section-title">
+    <h2>🌱 <span>TENTANG</span> ARTIPACK</h2>
+    <p>Kenalan yuk sama tim di balik kriuk-nya!</p>
+  </div>
+
+  <div class="about-wrap">
+    <div class="about-text">
+      <h2>From <span>Sukun</span> to Snack</h2>
+      <p>ARTIPACK merupakan proyek <strong>Edusciencepreneur</strong> dari kelompok beranggotakan 5 orang inovator muda. Kami menghadirkan inovasi kemasan untuk keripik sukun lokal.</p>
+      <p>Kami mengusung kemasan yang <strong>modern, praktis, dan menarik</strong> agar produk lokal semakin bernilai dan mudah dikenal.</p>
+      <ul class="team-list">
+        <li>1. Anis Lestari</li>
+        <li>2. Naila Shopia</li>
+        <li>3. Indah Ayu Nurrohmah</li>
+        <li>4. Fachidatul Azizah</li>
+        <li>5. Habibatus Salwa</li>
+      </ul>
+      <p style="color:var(--gold);font-weight:600;">📦 ARTIPACK — Bikin Produkmu Tampil Maksimal!<br>🥔 Keripik Sukun — Sukun Lokal, Kriuk Maksimal!</p>
+      <button class="btn btn-primary" style="margin-top:20px;" onclick="scrollToSection('katalog')">Lihat Produk Kami →</button>
+    </div>
+    <div class="about-img">👥</div>
+  </div>
+</section>
+
+<!-- ================= 4. CHECKOUT ================= -->
+<section id="checkout">
+  <div class="section-title">
+    <h2>🛒 <span>CHECKOUT</span></h2>
+    <p>Konfirmasi pesananmu langsung via WhatsApp!</p>
+  </div>
+
+  <div class="checkout-wrap">
+    <div class="panel">
+      <h3>Keranjang Anda</h3>
+      <div id="cartList"><p class="empty-cart">Keranjang masih kosong 😔</p></div>
+      <div class="cart-total" id="cartTotal" style="display:none;">
+        <span>Total</span>
+        <span id="totalPrice">Rp0</span>
+      </div>
+      <button class="btn btn-outline" style="width:100%;margin-top:16px;" onclick="clearCart()">🗑️ Kosongkan Keranjang</button>
+    </div>
+
+    <div class="panel">
+      <h3>Data Pemesan</h3>
+      <div class="form-group">
+        <label>Nama Lengkap</label>
+        <input type="text" id="nama" placeholder="Nama kamu...">
+      </div>
+      <div class="form-group">
+        <label>No. HP / WhatsApp</label>
+        <input type="text" id="hp" placeholder="08xxxxxxxxxx">
+      </div>
+      <div class="form-group">
+        <label>Alamat Pengiriman</label>
+        <textarea id="alamat" placeholder="Alamat lengkap..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Catatan (opsional)</label>
+        <input type="text" id="catatan" placeholder="Contoh: pedas, tanpa gula, dll.">
+      </div>
+      <button class="btn btn-primary" style="width:100%;" onclick="konfirmasiWA()">✅ Konfirmasi via WhatsApp</button>
+      <button class="btn btn-outline" style="width:100%;margin-top:10px;" onclick="scrollToSection('katalog')">← Lanjut Belanja</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5. KONTAK ================= -->
+<section id="kontak">
+  <div class="section-title">
+    <h2>📞 <span>KONTAK</span> & LOKASI</h2>
+    <p>Ada pertanyaan? Kami siap membantu!</p>
+  </div>
+
+  <div class="contact-wrap">
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="icon">📱</div>
+        <h3>WhatsApp</h3>
+        <p>085943793412</p>
+        <a href="https://wa.me/6285943793412?text=Halo%20ARTIPACK!%20Saya%20mau%20tanya..." target="_blank" class="btn btn-primary" style="font-size:0.85rem;padding:10px 20px;">Chat Sekarang</a>
+      </div>
+      <div class="contact-card">
+        <div class="icon">📧</div>
+        <h3>Email</h3>
+        <p>anslstr08@gmail.com</p>
+        <a href="mailto:anslstr08@gmail.com?subject=Tanya%20ARTIPACK" class="btn btn-primary" style="font-size:0.85rem;padding:10px 20px;">Kirim Email</a>
+      </div>
+      <div class="contact-card">
+        <div class="icon">📍</div>
+        <h3>Alamat</h3>
+        <p>Jalan Raya Telang, PO Box 2, Kec. Kamal, Kab. Bangkalan, Madura, Jawa Timur 69162</p>
+        <a href="https://maps.google.com/?q=Jalan+Raya+Telang+Kamal+Bangkalan+Madura" target="_blank" class="btn btn-primary" style="font-size:0.85rem;padding:10px 20px;">Lihat Maps</a>
+      </div>
+    </div>
+
+    <div class="map-wrap">
+      <iframe 
+        src="https://www.google.com/maps?q=Kamal,Bangkalan,Madura,Indonesia&output=embed"
+        loading="lazy" allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <footer style="margin-top:50px;border:none;background:transparent;">
+    © 2025 <span class="gold">ARTIPACK!</span> — Taste It, Love It, Crave It! · From Sukun to Snack 🥔✨
+  </footer>
+</section>
+
+<!-- ================= TOAST & BACK TOP ================= -->
+<div class="toast" id="toast">✓ Berhasil ditambahkan!</div>
+<button class="back-top" id="backTop" onclick="scrollToSection('home')" style="display:none;">↑</button>
+
+<script>
+/* ================= DATA PRODUK ================= */
+const products = [
+  {id:1, name:"Personal Pack", pack:"50g · Personal Pack", desc:"Cocok untuk camilan pribadi", price:5000, icon:"🍪"},
+  {id:2, name:"Regular Pack", pack:"100g · Regular Pack", desc:"Praktis untuk dijual", price:10000, icon:"🥔"},
+  {id:3, name:"Sharing Pack", pack:"200g · Sharing Pack", desc:"Cocok dinikmati bersama", price:18000, icon:"🍟"},
+  {id:4, name:"Large Pack", pack:"300g · Large Pack", desc:"Lebih banyak untuk keluarga atau teman", price:25000, icon:"🍱"},
+  {id:5, name:"Family Pack", pack:"500g · Family Pack", desc:"Cocok untuk stok atau acara", price:40000, icon:"🎁"},
+];
+
+let cart = JSON.parse(localStorage.getItem('artipack_cart') || '[]');
+let currentFilter = 'all';
+
+/* ================= SMOOTH SCROLL & NAV ================= */
+function scrollToSection(id){
+  const el = document.getElementById(id);
+  if(el){
+    const y = el.getBoundingClientRect().top + window.pageYOffset - 70;
+    window.scrollTo({top:y, behavior:'smooth'});
+  }
+}
+
+/* Update nav aktif saat scroll */
+const sections = ['home','katalog','tentang','checkout','kontak'];
+window.addEventListener('scroll', () => {
+  const scrollPos = window.scrollY + 120;
+  let active = 'home';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && el.offsetTop <= scrollPos) active = id;
+  });
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.classList.toggle('active', a.dataset.section === active);
+  });
+
+  // Back to top visibility
+  document.getElementById('backTop').style.display = window.scrollY > 400 ? 'block' : 'none';
+});
+
+/* ================= RENDER PRODUK ================= */
+function renderProducts(){
+  const grid = document.getElementById('productGrid');
+  let list = products;
+  if(currentFilter !== 'all'){
+    const f = parseInt(currentFilter);
+    list = products.filter(p => f === 20000 ? p.price >= 20000 : p.price === f);
+  }
+  grid.innerHTML = list.map(p => `
+    <div class="card">
+      <div class="card-img">${p.icon}</div>
+      <div class="card-body">
+        <h3>${p.name}</h3>
+        <div class="pack">${p.pack}</div>
+        <div class="desc">${p.desc}</div>
+        <div class="price">Rp${p.price.toLocaleString('id-ID')}</div>
+        <button class="btn-add" onclick="addToCart(${p.id})">+ Keranjang</button>
+      </div>
+    </div>
+  ).join('') || `<p style="grid-column:1/-1;text-align:center;color:var(--muted);padding:40px;">Tidak ada produk pada filter ini.</p>;
+}
+
+function filterProducts(filter, btn){
+  currentFilter = filter;
+  document.querySelectorAll('#filterBar button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts();
+}
+
+/* ================= CART ================= */
+function addToCart(id){
+  const p = products.find(x=>x.id===id);
+  const existing = cart.find(x=>x.id===id);
+  if(existing) existing.qty++;
+  else cart.push({...p, qty:1});
+  saveCart();
+  showToast(✓ ${p.name} ditambahkan!);
+}
+
+function saveCart(){
+  localStorage.setItem('artipack_cart', JSON.stringify(cart));
+  updateCartUI();
+}
+
+function updateCartUI(){
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartCount').textContent = count;
+
+  const listEl = document.getElementById('cartList');
+  const totalEl = document.getElementById('cartTotal');
+
+  if(cart.length === 0){
+    listEl.innerHTML = <p class="empty-cart">Keranjang masih kosong 😔</p>;
+    totalEl.style.display = 'none';
+    return;
+  }
+
+  listEl.innerHTML = cart.map(i => `
+    <div class="cart-item">
+      <span>${i.name} <small style="color:var(--gold);">x${i.qty}</small></span>
+      <span>Rp${(i.price*i.qty).toLocaleString('id-ID')}</span>
+    </div>
+  `).join('');
+
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('totalPrice').textContent = 'Rp' + total.toLocaleString('id-ID');
+  totalEl.style.display = 'flex';
+}
+
+function clearCart(){
+  if(cart.length === 0) return showToast('Keranjang sudah kosong');
+  if(confirm('Yakin mau kosongkan keranjang?')){
+    cart = [];
+    saveCart();
+    showToast('🗑️
